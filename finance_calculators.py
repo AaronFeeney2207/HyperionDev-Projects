@@ -1,4 +1,4 @@
-# Psuedocode:
+
 # import math
 # make a variable for whether the user picks 'investment' or 'bond' under choice_of_calc
 # using if statement - if choice of calculator == investment we proceed with investment calc 
