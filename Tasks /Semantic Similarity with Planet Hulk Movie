@@ -1,0 +1,67 @@
+# Read movies.txt - Descriptions of movies 
+# Create a function to return which movies a user would watch next if they watched Planet Hulk
+# Descriptions of Planet Hulk:
+# 'Will he save their world or destroy it? When the Hulk becomes too dangerous for the
+# Earth, the Illuminati trick Hulk into a shuttle and launch him into space to a
+# planet where the Hulk can live in peace. Unfortunately, Hulk lands on the
+# planet Sakaar where he is sold into slavery and trained as a gladiator. '
+#  The function should take in the description as a parameter and return the title of the most similar movie. 
+
+import operator
+import spacy 
+nlp = spacy.load('en_core_web_md')
+
+# Function for movie suggestion:
+def movie_suggestion(description):
+
+    movie_list = ['Movie A', 'Movie B', 'Movie C', 'Movie D', 'Movie E', 'Movie F', 'Movie G', 'Movie H', 'Movie I', 'Movie J']
+    similarity_list = []
+    # Comparing similarity between description of movie inputted and other movie descriptions available and inserting each value into a seperate list ' similairty_list'
+    for movies in movie_dict.values():
+        similarity = nlp(movies).similarity(nlp(description))
+        similarity_list.append(similarity)
+
+    # Putting movie titles and similairty scores into a dict 
+    similarity_dict = dict(zip(movie_list, similarity_list))
+    
+    # This caluclates the highest similarity value in my dict to tell the user what their most simialr movie is:
+    suggested_movie = max(similarity_dict.items(), key=operator.itemgetter(1))[0]
+
+    return f"Your suggested movie based on similarities to your last film is: {suggested_movie}"
+        
+
+
+
+# Putting text file into a list
+with open('movies.txt', 'r') as f:
+    movie_data = f.readlines()
+
+
+# Empty dict to seperate movie list into
+movie_dict = {}
+
+# For loop to insert each movie and its description into the empty dict
+for movie in movie_data:
+    key, value = movie.split(' : ')
+    movie_dict[key] = value 
+
+'''
+# Sanity check
+print(movie_dict['Movie A'])
+'''
+
+
+
+# Plant Hulk description into a variable
+planet_hulk_desc = '''Will he save
+their world or destroy it? When the Hulk becomes too dangerous for the
+Earth, the Illuminati trick Hulk into a shuttle and launch him into space to a
+planet where the Hulk can live in peace. Unfortunately, Hulk lands on the
+planet Sakaar where he is sold into slavery and trained as a gladiator.'''
+
+
+print("You just watched Planet Hulk. \nGreat Choice! \nTake a look at our next recommendation for you!")
+
+desc = movie_suggestion(planet_hulk_desc)
+
+print(desc)
