@@ -1,0 +1,37 @@
+import pandas as pd
+
+df = pd.read_csv('balance.txt',sep=' ')
+
+df.head()
+
+# Select the 'Limit' and 'Rating' columns of the first five observations
+
+limit_and_rating_columns = df[['Limit', 'Rating']]
+
+limit_and_rating_columns.head()
+
+# Select the first five observations with 4 cards
+
+four_cards = df[(df['Cards'] == 4)]
+
+four_cards.head()
+
+# Sort the observations by 'Education'. Show users with a high education value first.
+
+df.sort_values(by='Education', ascending=False).head()
+
+# Selects all the obsverations within the whole dataset as no specific values for rows or column were given. 
+
+df.iloc[:,:]
+
+# Misses the first 5 rows of the dataset and outputs every other row in the dataset as no second value was given after 5 
+# and misses the first 5 columns also as no value was given after the 5 again so every column from 5 onwards is outputted.
+
+df.iloc[5:,5:]
+
+# Selects every row as no speicifc value was given
+# and only the first column 'Balance' is printed as 0 is the only value inputted with no ':' so it doesnt print every column after 0 
+df.iloc[:,0]
+
+# Selects the row index number 9, printing just that row alone with with every column avaialble. 
+df.iloc[9,:]
